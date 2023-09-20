@@ -241,7 +241,7 @@ const Index = () => {
 
 
                     <p className="text-center mt-16 mb-5">
-                      Don't have an account?{" "}
+                      Don&apos;t have an account?{" "}
                       <Link
                         href="/user-registration"
                         className="text-primary-pink-color hover:underline"
