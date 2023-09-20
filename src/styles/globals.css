@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.shadow-form {
+  box-shadow: 0px 4px 35px rgba(0, 0, 0, 0.12);
+}
+
+
+* {
+  font-family: 'Poppins', sans-serif;
+  
+}
+
+
+.create-order-button:hover {
+  background-color: #da3192 !important;
+}
+
+
+.ant-menu-item:not(:first-child) {
+  margin-top: 0.5rem !important;
+}
+
+.ant-menu-item.ant-menu-item-selected {
+  background-color: #A51F6C !important;
+  color: white;
+}
+
+.ant-layout-sider-trigger {
+  background-color: #DFE2F5 !important;
+
+}
+
+.fontFamily{
+  font-family: 'Poppins';
+}
+
+.fontInter{
+  font-family: "Inter"
+}
+
+/* .ant-layout-sider,
+.ant-menu {
+  background-color: white !important;
+}
+
+.ant-layout-header {
+  background-color: white !important;
+} */
+
+.ant-layout-sider {
+  box-shadow: 4px 11px 12px rgba(0, 0, 0, 0.12) !important;
+  height: 100vh !important;
+  margin: 0 !important;
+} 
+
+.sidebar {
+  overflow-y: auto;
+  min-height: 100vh !important;
+  color: black;
+  /* padding-bottom: 1rem !important; */
+}
+
+::-webkit-scrollbar {
+  width: 0.5em;
+  height: 0.5em;
+}
+
+
+
+
+
+.sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebar:hover::-webkit-scrollbar {
+  /* overflow: scroll; */
+  display: block;
+  width: 6px;
+}
+
+/* .ant-layout-sider-collapsed .user {
+  display: none !important;
+}
+
+.tableWrapper {
+  display: flex;
+  flex-flow: column;
+  gap: 5px;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  box-shadow: 2px 4px 24px rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 10px;
+}
+
+.btn-primary {
+  background: #2f9379 !important;
+  font-family: "Poppins";
+}
+
+.tableWrapper .ant-table-thead tr th {
+  background-color: white !important;
+  border-right: none !important;
+}
+
+.tableWrapper table {
+  background-color: white;
+}
+
+.ant-popconfirm-buttons{
+  display: none !important;
+}
+
+.ant-dropdown-menu-item-active{
+  background: none !important;
+} */
+
+body{
+  background: #F9F9F9;
+}
+
+
+.submit-button {
+  background: #a51f6c !important;
+  border-color: #a51f6c;
+  color: #fff;
+}
+
+.submit-button:hover {
+  background: #DB3293 !important;
+  border-color: #DB3293;
+  color: #fff;
+}
+
+
+.more-button {
+  border: none; 
+  background-color: transparent; 
+}
+
+
+.ant-dropdown-menu-item.delete-option:hover {
+  background: #D13F62 !important;
+  color: #ffffff;
+}
+
+.custom-dropdown-menu .ant-dropdown-menu-item:hover {
+  background-color: #A51F6C !important;
+}
+
+.custom-dropdown-menu .ant-dropdown-menu-item:hover img {
+  filter: brightness(0) invert(1) !important;
+}
+
+.custom-dropdown-menu .ant-dropdown-menu-item:hover span {
+  color: white;
+}
+
+.fontFamily .ant-input{
+  font-family :"Poppins"
+}
+
