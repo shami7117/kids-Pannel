@@ -210,12 +210,12 @@ const Index = () => {
                         />
                         Remember me
                       </label>
-                      <a
+                      {/* <a
                         href="#"
                         className="text-primary-pink-color hover:underline"
                       >
                         Forgot Password?
-                      </a>
+                      </a> */}
                     </div>
                     <div className="flex justify-center items-center">
                       {
@@ -240,15 +240,7 @@ const Index = () => {
                     </div>
 
 
-                    <p className="text-center mt-16 mb-5">
-                      Don&apos;t have an account?{" "}
-                      <Link
-                        href="/user-registration"
-                        className="text-primary-pink-color hover:underline"
-                      >
-                        Sign up
-                      </Link>
-                    </p>
+
                   </div>
                 </div>
               </form>
