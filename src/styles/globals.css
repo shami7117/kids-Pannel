@@ -168,3 +168,6 @@ body{
   font-family :"Poppins"
 }
 
+.ant-btn-primary {
+  background-color: #a51f6c !important;
+}
