@@ -103,13 +103,13 @@ const getUsersByUserIds = async (userIds) => {
 
 
 // Update Admin
-const updateAdmin = async (id, Admin) => {
-    console.log("Admin in api", Admin);
+const updateAdmin = async (id, admin) => {
+    console.log("admin in api", admin);
     console.log("ID in api", id);
     const ref = doc(db, "Admins", id);
-    await setDoc(ref, Admin, { merge: true });
+    await setDoc(ref, admin, { merge: true });
     return {
-        ...Admin,
+        ...admin,
         id,
     };
 };

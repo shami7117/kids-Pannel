@@ -596,7 +596,7 @@ const Index = () => {
                       </p>
                     </td>
                     {/* description */}
-                    <td className="font-[400] max-w-[150px] text-center">
+                    <td className="font-[400]  text-center">
                       <p className="text-[#110F0F] text-[14px]">
                         {product.description}
                       </p>
@@ -709,7 +709,7 @@ const Index = () => {
                         </p>
                       </td>
                       {/* description */}
-                      <td className="font-[400] max-w-[150px] text-center">
+                      <td className="font-[400]  text-center">
                         <p className="text-[#110F0F] text-[14px]">
                           {product.description}
                         </p>

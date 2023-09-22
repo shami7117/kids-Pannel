@@ -280,7 +280,7 @@ const Index = () => {
               </thead>
 
               <tbody>
-                {concatenatedArray?.map((content) => (
+                {concatenatedArray.length > 0 ? concatenatedArray?.map((content) => (
                   <tr
                     key={content.id}
                     className={`hover:bg-gray-200 border-b border-[DFDFDF] 
@@ -322,11 +322,11 @@ const Index = () => {
                     </td>
 
                   </tr>
-                ))}
+                )) : <h1 className="flex justify-start  items-center">Earning not available</h1>}
               </tbody>
             </table>
             <div className="lg:hidden flex flex-col space-y-4">
-              {concatenatedArray?.map((earning) => (
+              {concatenatedArray.length > 0 ? concatenatedArray?.map((earning) => (
                 <div
                   key={earning.id}
                   className="bg-white rounded-md border border-grey-500 shadow-md my-5 py-3 px-4 flex flex-col"
@@ -371,7 +371,7 @@ const Index = () => {
                     </div>
                   </div>
                 </div>
-              ))}
+              )) : <h1 className="flex justify-start  items-center">Earning not available</h1>}
               {/* <Pagination
                 current={currentPage}
                 pageSize={ITEMS_PER_PAGE}

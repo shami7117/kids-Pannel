@@ -55,17 +55,22 @@ const Index = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-        const user = auth.currentUser;
-        const userId = user?.uid
-        if (userId !== undefined) {
-            setIsLoggedIn(true)
-        }
-        else {
-            setIsLoggedIn(false)
-        }
-        console.log("USER", userId);
 
-    })
+        const unsubscribe = auth.onAuthStateChanged(user => {
+            if (user) {
+                setIsLoggedIn(true);
+            } else {
+                setIsLoggedIn(false);
+            }
+        });
+
+        return () => {
+            // Unsubscribe from the listener when the component unmounts
+            unsubscribe();
+        };
+    }, []);
+
+
 
     const navMenu = (
         <Menu className="custom-dropdown-menu">
