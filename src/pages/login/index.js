@@ -15,6 +15,7 @@ const Index = () => {
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
+  const [Show, setShow] = useState(false);
 
   const [formData, setFormData] = useState({
 
@@ -192,13 +193,14 @@ const Index = () => {
                     </label>
 
                     <input
-                      type="password"
+                      type={Show ? "text" : "password"}
                       placeholder="Password"
                       name="password"
                       value={formData.password}
                       onChange={handleChange}
                       className="md:w-[400px] h-[50px] px-5 bg-[#B4C7ED0D] border border-[#2668E826] rounded-md"
                     />
+                    <p onClick={() => { setShow(!Show) }} className="self-end cursor-pointer">{Show ? <span>Hide</span> : <span>Show</span>}</p>
                     {errors.password && <div className="px-1 justify-start text-[red] flex items-center  whitespace-nowrap rounded-lg  text-[black] mb-1   ">{errors.password}</div>}
 
                     <div className="flex items-center justify-between my-4">
@@ -210,12 +212,12 @@ const Index = () => {
                         />
                         Remember me
                       </label>
-                      {/* <a
-                        href="#"
+                      <Link
+                        href="/forgot"
                         className="text-primary-pink-color hover:underline"
                       >
                         Forgot Password?
-                      </a> */}
+                      </Link>
                     </div>
                     <div className="flex justify-center items-center">
                       {

@@ -10,7 +10,7 @@ const queryClient = new QueryClient();
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
 
-  if (router.pathname === "/login") {
+  if (router.pathname === "/login" || router.pathname === "/forgot") {
     return (
       <QueryClientProvider client={queryClient}>
         <GeneralLayout>
