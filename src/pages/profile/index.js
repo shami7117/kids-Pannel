@@ -11,6 +11,8 @@ import { updatePassword, reauthenticateWithCredential, EmailAuthProvider } from 
 import {
   notification
 } from "antd";
+import { InfinitySpin } from 'react-loader-spinner'
+
 import * as Yup from 'yup';
 import {
   collection,
@@ -28,6 +30,7 @@ const Index = () => {
 
 
 
+  const [loading, setLoading] = useState(false);
 
 
 
@@ -604,6 +607,7 @@ const Index = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       await validationSchema.validate(formData, { abortEarly: false });
@@ -630,7 +634,7 @@ const Index = () => {
 
 
 
-      // setLoading(false);
+      setLoading(false);
 
 
 
@@ -642,7 +646,7 @@ const Index = () => {
           newErrors[err.path] = err.message;
         });
         setErrors(newErrors);
-        // setLoading(false);
+        setLoading(false);
         console.log(error)
         // console.log('Form data is valid');
 
@@ -663,7 +667,7 @@ const Index = () => {
         console.log("FIREBASE ERROR", error)
 
 
-        // setLoading(false);
+        setLoading(false);
       }
 
 
@@ -713,15 +717,41 @@ const Index = () => {
     }
   }, [newPassword, repeatPassword]);
 
+  const [userEmail, setUserEmail] = useState(null);
+
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        // User is signed in.
+        setUserEmail(authUser);
+        console.log("User's email:", authUser.email);
+      } else {
+        // User is signed out.
+        setUserEmail(null);
+        console.log("User is signed out.");
+      }
+    });
+
+    return () => {
+      // Unsubscribe the listener when the component unmounts
+      unsubscribe();
+    };
+  }, []);
+
+  console.log("LOGED IN USER email", userEmail?.email)
 
   const handlePasswordSubmit = (e) => {
+
     e.preventDefault();
     console.log("LOGED IN USER", userId)
+    setLoading(true);
 
     if (newPassword === repeatPassword) {
-      if ((newPassword !== "" || repeatPassword !== "")) {
-        const credential = EmailAuthProvider.credential(data?.email, currentPassword);
 
+      if ((newPassword !== "" || repeatPassword !== "")) {
+        const credential = EmailAuthProvider.credential(userEmail?.email, currentPassword);
+        console.log("USER", credential)
         // Reauthenticate the user
         reauthenticateWithCredential(user, credential)
           .then(() => {
@@ -736,6 +766,9 @@ const Index = () => {
                 setCurrentPassword('');
                 setNewPassword('');
                 setPasswordMatch('')
+                setRepeatPassword('');
+                setLoading(false);
+
               })
               .catch((error) => {
                 console.log("Error updating password: " + error.message);
@@ -748,6 +781,8 @@ const Index = () => {
                 message: "Wrong current password",
                 placement: "top",
               });
+              setLoading(false);
+
             }
             if (error.message === "Firebase: Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later. (auth/too-many-requests).") {
               notification.open({
@@ -755,20 +790,28 @@ const Index = () => {
                 message: "Too many attempts wrong try later! ",
                 placement: "top",
               });
+              setLoading(false);
+
             }
-            console.log("Error reauthenticating: " + error.message);
+            console.log("Error reauthenticating: " + error.message); setLoading(false);
+
           });
 
       }
       else {
-        message.error("Please enter password to update")
+        message.error("Please enter password to update"); setLoading(false);
+
         return;
       }
 
     } else {
 
       message.error("Passwords do not match. Please try again.");
+      setLoading(false);
+
     }
+    setLoading(false);
+
   };
 
   if (isLoading) {
@@ -993,12 +1036,25 @@ const Index = () => {
                   />
                 </div> */}
                 <div className="w-full flex justify-center sm:justify-end ">
-                  <button
-                    type="submit"
-                    className="mt-6 bg-[#A51F6C] text-white py-2 px-4 rounded transition duration-300 hover:bg-[#E82494]"
-                  >
-                    Update Profile
-                  </button>
+                  {
+                    loading ? <InfinitySpin
+                      visible={true}
+                      width="200"
+                      ariaLabel="InfinitySpin -loading"
+                      wrapperStyle={{}}
+                      wrapperClass="InfinitySpin -wrapper"
+                      color="#A51F6C"
+
+                      // colors={['#F4442E', '#F4442E', '#F4442E', '#F4442E', '#F4442E']}
+                      backgroundColor="#F4442E"
+                    /> : <button
+                      type="submit"
+                      className="mt-6 bg-[#A51F6C] text-white py-2 px-4 rounded transition duration-300 hover:bg-[#E82494]"
+                    >
+                      Update Profile
+                    </button>
+
+                  }
 
                 </div>
 
@@ -1068,12 +1124,25 @@ const Index = () => {
 
 
                   <div className="w-full flex justify-center sm:justify-end">
-                    <button
-                      type="submit"
-                      className=" bg-[#A51F6C] text-white py-2 px-4 rounded transition duration-300 hover:bg-[#E82494]"
-                    >
-                      Change Password
-                    </button>
+                    {
+                      loading ? <InfinitySpin
+                        visible={true}
+                        width="200"
+                        ariaLabel="InfinitySpin -loading"
+                        wrapperStyle={{}}
+                        wrapperClass="InfinitySpin -wrapper"
+                        color="#A51F6C"
+
+                        // colors={['#F4442E', '#F4442E', '#F4442E', '#F4442E', '#F4442E']}
+                        backgroundColor="#F4442E"
+                      /> : <button
+                        type="submit"
+                        className=" bg-[#A51F6C] text-white py-2 px-4 rounded transition duration-300 hover:bg-[#E82494]"
+                      >
+                        Change Password
+                      </button>
+                    }
+
                   </div>
                 </div>
               </form>
