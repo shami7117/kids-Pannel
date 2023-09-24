@@ -710,7 +710,7 @@ const Index = () => {
               </tbody>
             </table>
             <div className="lg:hidden flex flex-col space-y-4">
-              {filteredOrders.slice(startIndex, endIndex).map((order) => (
+              {searchResults.length > 0 && searchText !== '' ? searchResults?.map((order) => (
                 <div
                   key={order.id}
                   className="bg-white rounded-md border border-grey-500 shadow-md my-5 p-3">
@@ -780,8 +780,81 @@ const Index = () => {
                       {order.status}
                     </p>
                   </div>
-                </div>
-              ))}
+                </div>)) : searchResults.length === 0 && searchText !== '' ?
+                <h1>No results found</h1> :
+                data?.map((order) => (
+                  <div
+                    key={order.id}
+                    className="bg-white rounded-md border border-grey-500 shadow-md my-5 p-3">
+                    <div className="flex justify-between items-center border-b border-[#A51F6C] mt-2 pb-3 flex-wrap w-full">
+                      <div className="">
+                        <h3 className="font-semibold text-base">Order ID</h3>
+                        <p className="text-base">{order.orderId}</p>
+                      </div>
+
+
+                      <div className="w-10 h-10 rounded-full border border-[#A51F6C] flex items-center justify-center">
+                        <Dropdown
+                          overlay={
+                            <Menu>
+                              <Menu.Item onClick={() => handleEditModalOpen(order)}>
+                                <EditOutlined /> Edit
+                              </Menu.Item>
+
+                            </Menu>
+                          }
+                          trigger={["click"]}
+                          placement="bottomRight"
+                        // visible={selectedOrderId === order.id}
+                        // onVisibleChange={(visible) => {
+                        //   if (!visible) {
+                        //     setSelectedOrderId(null);
+                        //   }
+                        // }}
+                        >
+                          <Button
+                            icon={<MoreOutlined size={26} />}
+                            className="more-button"
+
+                            onClick={() => handleActionsToggle(order.id)}
+                            style={{ color: "#A51F6C", fontWeight: "bolder" }}
+                          />
+                        </Dropdown>
+                      </div>
+                    </div>
+
+                    <div className="flex justify-between items-center mt-2 w-full border-b border-[#A51F6C] pb-3 mt-3 flex-wrap ">
+                      <div>
+                        <h3 className="font-semibold text-base">Customer</h3>
+                        <p className="text-base">{order.fName}</p>
+                      </div>
+
+                      <div className=" mr-[30%]">
+                        <h3 className="font-semibold text-base">Payment</h3>
+                        <p className="text-base">{order.payment}</p>
+                      </div>
+                      {/* <div className="">
+                      <h3 className="font-semibold text-base">Order Date</h3>
+                      <p className="text-base">{order.orderDate}</p>
+                    </div> */}
+                    </div>
+
+                    <div className="flex justify-between items-center pb-3 mt-3 w-full flex-wrap">
+                      <div>
+                        <p className="font-semibold text-lg">Price</p>
+                        <p className="font-[600] text-blue-600 text-lg">
+                          ${order.amount}
+                        </p>
+                      </div>
+
+                      <p
+                        className={`rounded-md px-2 py-1 text-[18px] font-[400] text-center `}
+                        style={getStatusStyle(order.status)}>
+                        {order.status}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               <Pagination
                 current={currentPage}
                 pageSize={ITEMS_PER_PAGE}

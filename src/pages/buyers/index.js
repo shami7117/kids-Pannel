@@ -497,102 +497,102 @@ const Index = () => {
                   </tr>
                 )) : searchResults.length === 0 && searchText !== '' ?
                   <h1>No results found</h1> : data?.map((seller) => (
-                  <tr
-                    key={seller?.id}
-                    className={`hover:bg-gray-200 border-b border-[DFDFDF] ${seller.selected ? "bg-[#F4F4F4]" : ""
-                      }`}
-                  >
-                    {/* Seller Image */}
-                    <td className="">
-                      <div className="flex justify-center items-center ml-[10%]">
+                    <tr
+                      key={seller?.id}
+                      className={`hover:bg-gray-200 border-b border-[DFDFDF] ${seller.selected ? "bg-[#F4F4F4]" : ""
+                        }`}
+                    >
+                      {/* Seller Image */}
+                      <td className="">
+                        <div className="flex justify-center items-center ml-[10%]">
 
+                          <p className="text-[#110F0F] text-[14px]">
+                            {seller?.firstName}
+                          </p>
+                        </div>
+                      </td>
+
+                      <td className="font-[400] text-center">
                         <p className="text-[#110F0F] text-[14px]">
-                          {seller?.firstName}
+                          {seller?.lastName}
                         </p>
-                      </div>
-                    </td>
+                      </td>
 
-                    <td className="font-[400] text-center">
-                      <p className="text-[#110F0F] text-[14px]">
-                        {seller?.lastName}
-                      </p>
-                    </td>
+                      <td className="font-[400] text-center">
+                        <p className="text-[#110F0F] text-[14px]">
+                          {seller?.address}
+                        </p>
+                      </td>
 
-                    <td className="font-[400] text-center">
-                      <p className="text-[#110F0F] text-[14px]">
-                        {seller?.address}
-                      </p>
-                    </td>
+                      <td className="font-[400] text-center">
+                        <p
+                          className="rounded-md px-2 py-1 text-[14px] font-[400] text-center"
+                        >
+                          {seller.city}
+                        </p>
+                      </td>
 
-                    <td className="font-[400] text-center">
-                      <p
-                        className="rounded-md px-2 py-1 text-[14px] font-[400] text-center"
-                      >
-                        {seller.city}
-                      </p>
-                    </td>
+                      <td className="font-[400] text-center">
+                        <p className="text-[#110F0F] text-[14px]">
+                          {seller?.phone}
+                        </p>
+                      </td>
 
-                    <td className="font-[400] text-center">
-                      <p className="text-[#110F0F] text-[14px]">
-                        {seller?.phone}
-                      </p>
-                    </td>
-
-                    <td className="font-[400] text-center">
-                      <p className="text-[#110F0F] text-[14px]">
-                        {seller?.email}
-                      </p>
-                    </td>
-                    <td className="font-[400] text-center">
-                      <p className="text-[#110F0F] text-[14px]">
-                        {seller?.postCode}
-                      </p>
-                    </td>
-                    <td className="font-[400] text-center">
-                      <p className="text-[#110F0F] text-[14px]">
-                        {seller?.region}
-                      </p>
-                    </td>
-                    {/* Actions */}
-                    <td className="flex justify-around items-center">
-                      <Dropdown
-                        overlay={
-                          <Menu>
-                            <Menu.Item
-                              onClick={() => handleEditModalOpen(seller)}
-                            >
-                              <EditOutlined /> Edit
-                            </Menu.Item>
-                            <Menu.Item
-                              onClick={() => { handleDeleteEach(seller?.id) }}
-                              className="delete-option"
-                            >
-                              <DeleteOutlined /> Delete
-                            </Menu.Item>
-                          </Menu>
-                        }
-                        trigger={["click"]}
-                        placement="bottomRight"
-                      // visible={selectedSellerId === seller.id}
-                      // onVisibleChange={(visible) => {
-                      //   if (!visible) {
-                      //     setSelectedSellerId(null);
-                      //   }
-                      // }}
-                      >
-                        <Button
-                          icon={<MoreOutlined />}
-                          className="more-button"
-                          onClick={() => handleActionsToggle(seller.id)}
-                        />
-                      </Dropdown>
-                    </td>
-                  </tr>
-                ))}
+                      <td className="font-[400] text-center">
+                        <p className="text-[#110F0F] text-[14px]">
+                          {seller?.email}
+                        </p>
+                      </td>
+                      <td className="font-[400] text-center">
+                        <p className="text-[#110F0F] text-[14px]">
+                          {seller?.postCode}
+                        </p>
+                      </td>
+                      <td className="font-[400] text-center">
+                        <p className="text-[#110F0F] text-[14px]">
+                          {seller?.region}
+                        </p>
+                      </td>
+                      {/* Actions */}
+                      <td className="flex justify-around items-center">
+                        <Dropdown
+                          overlay={
+                            <Menu>
+                              <Menu.Item
+                                onClick={() => handleEditModalOpen(seller)}
+                              >
+                                <EditOutlined /> Edit
+                              </Menu.Item>
+                              <Menu.Item
+                                onClick={() => { handleDeleteEach(seller?.id) }}
+                                className="delete-option"
+                              >
+                                <DeleteOutlined /> Delete
+                              </Menu.Item>
+                            </Menu>
+                          }
+                          trigger={["click"]}
+                          placement="bottomRight"
+                        // visible={selectedSellerId === seller.id}
+                        // onVisibleChange={(visible) => {
+                        //   if (!visible) {
+                        //     setSelectedSellerId(null);
+                        //   }
+                        // }}
+                        >
+                          <Button
+                            icon={<MoreOutlined />}
+                            className="more-button"
+                            onClick={() => handleActionsToggle(seller.id)}
+                          />
+                        </Dropdown>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
             <div className="lg:hidden flex flex-col space-y-4">
-              {data.slice(startIndex, endIndex).map((buyer) => (
+              {searchResults.length > 0 && searchText !== '' ? searchResults?.map((buyer) => (
                 <div
                   key={buyer.id}
                   className="bg-white rounded-md border border-grey-500 shadow-md my-5 py-3 px-4 flex flex-col">
@@ -682,7 +682,98 @@ const Index = () => {
 
                   </div>
                 </div>
-              ))}
+              )) : searchResults.length === 0 && searchText !== '' ?
+                <h1>No results found</h1> : data.slice(startIndex, endIndex).map((buyer) => (
+                  <div
+                    key={buyer.id}
+                    className="bg-white rounded-md border border-grey-500 shadow-md my-5 py-3 px-4 flex flex-col">
+                    <div className="flex justify-between items-center border-b border-[#A51F6C] pb-3 w-full">
+                      <div className="flex items-center">
+                        {/* <div className="w-20 h-20 rounded-md overflow-hidden  flex items-center justify-center">
+                        <Image
+                          src={buyer.image}
+                          width={80}
+                          height={80}
+                          alt="Product"
+                        />
+                      </div> */}
+                        <div className="">
+                          <h3 className="font-semibold text-base">Buyer Id: {buyer.id}</h3>
+                          <h3 className="font-semibold text-base">Name: {buyer.firstName}</h3>
+                        </div>
+                      </div>
+                      <Dropdown
+                        overlay={
+                          <Menu>
+                            <Menu.Item onClick={() => handleEditModalOpen(buyer)}>
+                              <EditOutlined /> Edit
+                            </Menu.Item>
+                            <Menu.Item onClick={() => { handleDeleteEach(buyer.id) }} className="delete-option">
+                              <DeleteOutlined /> Delete
+                            </Menu.Item>
+                          </Menu>
+                        }
+                        trigger={["click"]}
+                        placement="bottomRight"
+                        visible={selectedBuyerId === buyer.id}
+                        onVisibleChange={(visible) => {
+                          if (!visible) {
+                            // setSelectedBuyerId(null);
+                          }
+                        }}>
+                        <Button icon={<MoreOutlined />} className="more-button rounded-full border border-[#A51F6C]" onClick={() => handleActionsToggle(buyer.id)} />
+                      </Dropdown>
+                    </div>
+
+                    <div className="flex items-center justify-between border-b border-[#A51F6C] pb-3 mt-3 w-full  sm:px-auto">
+                      <div className="mr-[30%]">
+                        <h3 className="font-semibold text-base">Region:</h3>
+                        <p className="text-base">{buyer.region}</p>
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-base">City:</h3>
+                        <p className="text-base">{buyer.city}</p>
+                      </div>
+                    </div>
+
+                    <div className="flex wrap   border-b border-[#A51F6C] justify-between items-center pb-3 mt-3 w-full  sm:px-auto">
+                      <div className="flex-wrap">
+                        <p className="font-semibold text-lg">Email</p>
+                        <p className="font-[600] text-blue-600 text-lg">{buyer.email}</p>
+                      </div>
+
+
+                    </div>
+
+                    <div className="flex justify-between  border-b border-[#A51F6C] items-center pb-3 mt-3 w-full  sm:px-auto">
+
+                      <div>
+                        <p className="font-semibold text-lg">Phone Number</p>
+                        <p
+                          className={` text-[18px] font-[400] text-center `}
+                        >
+                          {buyer.phone}
+                        </p>
+                      </div>
+
+                    </div>
+                    <div className="flex justify-between items-center pb-3 mt-3 w-full  sm:px-auto">
+                      <div>
+                        <p className="font-semibold text-lg">Address</p>
+                        <p className="font-[600] text-blue-600 text-lg">{buyer.address}</p>
+                      </div>
+                      <div>
+                        <p className="font-semibold text-lg">Post Code</p>
+                        <p
+                          className={` text-[18px] font-[400] text-center `}
+                        >
+                          {buyer.postCode}
+                        </p>
+                      </div>
+
+                    </div>
+                  </div>
+                ))}
               <Pagination
                 current={currentPage}
                 pageSize={ITEMS_PER_PAGE}

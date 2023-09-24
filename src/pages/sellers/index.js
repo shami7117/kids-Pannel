@@ -596,7 +596,7 @@ const Index = ({ Sellers }) => {
               </tbody>
             </table>
             <div className="lg:hidden flex flex-col space-y-4">
-              {data?.slice(startIndex, endIndex).map((seller) => (
+              {searchResults.length > 0 && searchText !== '' ? searchResults?.map((seller) => (
                 <div
                   key={seller.id}
                   className="bg-white rounded-md border border-grey-500 shadow-md my-5 py-3 px-4 flex flex-col"
@@ -678,7 +678,90 @@ const Index = ({ Sellers }) => {
                     </div>
                   </div>
                 </div>
-              ))}
+              )) : searchResults.length === 0 && searchText !== '' ?
+                <h1>No results found</h1> : data?.slice(startIndex, endIndex).map((seller) => (
+                  <div
+                    key={seller.id}
+                    className="bg-white rounded-md border border-grey-500 shadow-md my-5 py-3 px-4 flex flex-col"
+                  >
+
+                    <div className="flex justify-between items-center border-b border-[#A51F6C] pb-3 w-full">
+                      <div className="flex items-center">
+
+                        <div className="ml-4">
+                          <h3 className="font-semibold text-base">
+                            Seller Id: {seller.id}
+                          </h3>
+                          <h3 className="font-semibold text-base">
+                            Name: {seller.fName}
+                          </h3>
+                        </div>
+                      </div>
+                      <Dropdown
+                        overlay={
+                          <Menu>
+                            <Menu.Item onClick={() => handleEditModalOpen(seller)}>
+                              <EditOutlined /> Edit
+                            </Menu.Item>
+                            <Menu.Item
+                              onClick={() => { handleDeleteEach(seller.id) }}
+                              className="delete-option"
+                            >
+                              <DeleteOutlined /> Delete
+                            </Menu.Item>
+                          </Menu>
+                        }
+                        trigger={["click"]}
+                        placement="bottomRight"
+                      // visible={selectedSellerId === seller.id}
+                      // onVisibleChange={(visible) => {
+                      //   if (!visible) {
+                      //     setSelectedSellerId(null);
+                      //   }
+                      // }}
+                      >
+                        <Button
+                          icon={<MoreOutlined />}
+                          className="more-button rounded-full border border-[#A51F6C]"
+                          onClick={() => handleActionsToggle(seller.id)}
+                        />
+                      </Dropdown>
+                    </div>
+
+                    <div className="flex items-center justify-between border-b border-[#A51F6C] pb-3 mt-3 w-full px-[6%] sm:px-auto">
+                      <div className="mr-[30%]">
+                        <h3 className="font-semibold text-base">Registered:</h3>
+                        <p className="text-base">{seller.register}</p>
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-base">Country:</h3>
+                        <p className="text-base">{seller.country}</p>
+                      </div>
+                    </div>
+
+                    <div className="flex justify-between border-b border-[#A51F6C] items-center pb-3 mt-3 w-full px-[6%] sm:px-auto">
+                      <div>
+                        <p className="font-semibold text-lg">Email</p>
+                        <p className="font-[600] text-blue-600 text-lg">
+                          {seller.email}
+                        </p>
+                      </div>
+
+                    </div>
+
+                    <div className="flex justify-between border-b border-[#A51F6C] items-center pb-3 mt-3 w-full px-[6%] sm:px-auto">
+
+                      <div>
+                        <p className="font-semibold text-lg">Phone</p>
+                        <p
+                          className={` text-[18px] font-[400] text-center `}
+                        >
+                          {seller.phone}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               {/* <Pagination
                 current={currentPage}
                 pageSize={ITEMS_PER_PAGE}

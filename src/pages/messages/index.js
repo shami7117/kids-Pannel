@@ -563,7 +563,7 @@ const Index = ({ Messages }) => {
                             </tbody>
                         </table>
                         <div className="lg:hidden flex flex-col space-y-4">
-                            {data?.map((seller) => (
+                            {searchResults.length > 0 && searchText !== '' ? searchResults?.map((seller) => (
                                 <div
                                     key={seller.id}
                                     className="bg-white rounded-md border border-grey-500 shadow-md my-5 py-3 px-4 flex flex-col"
@@ -638,7 +638,83 @@ const Index = ({ Messages }) => {
 
                                     </div>
                                 </div>
-                            ))}
+                            )) : searchResults.length === 0 && searchText !== '' ?
+                                <h1>No results found</h1> : data?.map((seller) => (
+                                    <div
+                                        key={seller.id}
+                                        className="bg-white rounded-md border border-grey-500 shadow-md my-5 py-3 px-4 flex flex-col"
+                                    >
+
+                                        <div className="flex justify-between items-center border-b border-[#A51F6C] pb-3 w-full">
+                                            <div className="flex items-center">
+
+                                                <div className="">
+                                                    {/* <h3 className="font-semibold text-base">
+                                                    Seller Id: {seller.id}
+                                                </h3> */}
+                                                    <h3 className="font-semibold text-base">
+                                                        Name: {seller.name}
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                            <Dropdown
+                                                overlay={
+                                                    <Menu>
+                                                        <Menu.Item onClick={() => handleEditModalOpen(seller)}>
+                                                            <EditOutlined /> Edit
+                                                        </Menu.Item>
+                                                        <Menu.Item
+                                                            onClick={() => { handleDeleteEach(seller.id) }}
+                                                            className="delete-option"
+                                                        >
+                                                            <DeleteOutlined /> Delete
+                                                        </Menu.Item>
+                                                    </Menu>
+                                                }
+                                                trigger={["click"]}
+                                                placement="bottomRight"
+                                            // visible={selectedSellerId === seller.id}
+                                            // onVisibleChange={(visible) => {
+                                            //   if (!visible) {
+                                            //     setSelectedSellerId(null);
+                                            //   }
+                                            // }}
+                                            >
+                                                <Button
+                                                    icon={<MoreOutlined />}
+                                                    className="more-button rounded-full border border-[#A51F6C]"
+                                                    onClick={() => handleActionsToggle(seller.id)}
+                                                />
+                                            </Dropdown>
+                                        </div>
+
+                                        <div className="flex items-center justify-between border-b border-[#A51F6C] pb-3 mt-3 w-full sm:px-auto">
+                                            <div className="mr-[30%]">
+                                                <h3 className="font-semibold text-base">Subject:</h3>
+                                                <p className="text-base">{seller.subject}</p>
+                                            </div>
+
+                                        </div>
+
+                                        <div className="flex  items-center justify-between border-b border-[#A51F6C] pb-3 mt-3 w-full sm:px-auto">
+
+                                            <div className="max-w-[150px]">
+                                                <h3 className="font-semibold text-base">Email:</h3>
+                                                <p className="text-base ">{seller.email}</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex  justify-between items-center pb-3 mt-3 w-full sm:px-auto">
+                                            <div className="max-w-[270px] w-full">
+                                                <p className="font-semibold text-lg">Messages</p>
+                                                <p className="font-[600] text-blue-600 text-lg">
+                                                    {seller.message}
+                                                </p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                ))}
                             {/* <Pagination
                 current={currentPage}
                 pageSize={ITEMS_PER_PAGE}

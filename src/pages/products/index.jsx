@@ -765,7 +765,7 @@ const Index = () => {
               </tbody>
             </table>
             <div className="lg:hidden flex flex-col space-y-4">
-              {data?.map((product) => (
+              {searchResults.length > 0 && searchText !== '' ? searchResults?.map((product) => (
                 <div
                   key={product.id}
                   className="bg-white rounded-md border border-grey-500 shadow-md my-5 py-3 px-4 flex flex-col">
@@ -841,7 +841,84 @@ const Index = () => {
                     </p>
                   </div>
                 </div>
-              ))}
+              )) : searchResults.length === 0 && searchText !== '' ?
+                <h1>No results found</h1> : data?.map((product) => (
+                  <div
+                    key={product.id}
+                    className="bg-white rounded-md border border-grey-500 shadow-md my-5 py-3 px-4 flex flex-col">
+                    <div className="flex justify-between items-center border-b border-[#A51F6C] pb-3 w-full">
+                      <div className="flex  items-center">
+                        <div className="w-20 h-20 rounded-md overflow-hidden  flex items-center justify-center">
+                          <Image
+                            src={product.file}
+                            width={80}
+                            height={80}
+                            alt="Product"
+                          />
+                        </div>
+                        <div className="ml-2">
+                          <h3 className="font-semibold text-base">{product.category}</h3>
+                        </div>
+                      </div>
+                      <Dropdown
+                        overlay={
+                          <Menu>
+                            <Menu.Item onClick={() => handleEditModalOpen(product)}>
+                              <EditOutlined /> Edit
+                            </Menu.Item>
+                            <Menu.Item
+                              onClick={() => { handleDeleteEach(product.id) }}
+                              className="delete-option">
+                              <DeleteOutlined /> Delete
+                            </Menu.Item>
+                          </Menu>
+                        }
+                        trigger={["click"]}
+                        placement="bottomRight"
+                      // visible={selectedProductId === product.id}
+                      // onVisibleChange={(visible) => {
+                      //   if (!visible) {
+                      //     setSelectedProductId(null);
+                      //   }
+                      // }}
+                      >
+                        <Button icon={<MoreOutlined />} className="more-button rounded-full border border-[#A51F6C]" onClick={() => handleActionsToggle(product.id)} />
+                      </Dropdown>
+                    </div>
+
+
+                    <div className="flex justify-between items-center pb-3 mt-3 w-full px-[6%] sm:px-auto">
+                      <div>
+                        <p className="font-semibold text-lg">Product Name</p>
+                        <p className="font-[600] text-blue-600 text-lg">{product.product}</p>
+                      </div>
+
+                    </div>
+
+                    <div className="flex items-center justify-between border-b border-[#A51F6C] pb-3 mt-3 w-full px-[6%] sm:px-auto">
+                      <div className="mr-[30%]">
+                        <h3 className="font-semibold text-base">Color</h3>
+                        <p className="text-base">{product.color}</p>
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-base">Status</h3>
+                        <p className="text-base">${product.status}</p>
+                      </div>
+                    </div>
+
+                    <div className="flex justify-between items-center pb-3 mt-3 w-full px-[6%] sm:px-auto">
+                      <div>
+                        <p className="font-semibold text-lg">Price</p>
+                        <p className="font-[600] text-blue-600 text-lg">${product.price}</p>
+                      </div>
+                      <p
+                        className={`rounded-md px-2 py-1 text-[18px] font-[400] text-center `}
+                        style={getStatusStyle(product.status)}>
+                        {product.status}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               <Pagination
                 current={currentPage}
                 pageSize={ITEMS_PER_PAGE}
