@@ -25,9 +25,21 @@ import {
   where,
 } from "firebase/firestore";
 import { useRouter } from "next/router.js";
+import Link from "next/link.js";
+import { Button, Modal, Space } from 'antd';
 
 const Index = () => {
+  const router = useRouter()
 
+  const info = () => {
+    Modal.info({
+      content: 'Login first !',
+
+      onOk() {
+        router.push('/login')
+      },
+    });
+  };
 
 
   const [loading, setLoading] = useState(false);
@@ -476,6 +488,31 @@ const Index = () => {
   const [filteredCountries, setFilteredCountries] = useState(countries);
 
 
+
+  const [selectedCountry, setSelectedCountry] = useState('');
+
+
+  // Find the country object with the matching code
+  const selectedCountries = countryCodes.filter((country) =>
+
+    country.value.toLowerCase().includes(selectedCountryCode.toLowerCase())
+
+  )
+
+  useEffect(() => {
+    const countryName = selectedCountries[0].label?.match(/^(.*?)\s+\(\+\d+\)$/);
+
+    if (countryName && countryName.length >= 2) {
+      const extractedCountryName = countryName[1];
+      setSelectedCountry(extractedCountryName)
+      console.log(extractedCountryName); // This will print "Honduras"
+    } else {
+      console.log("Country name not found in the input string");
+    }
+  })
+
+
+
   const [errors, setErrors] = useState({});
   const queryClient = useQueryClient();
   const updateMutation = useMutation(
@@ -511,6 +548,31 @@ const Index = () => {
   } catch (error) {
     console.log(error)
   }
+
+
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      if (user) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+        info()
+
+      }
+    });
+
+    return () => {
+      // Unsubscribe from the listener when the component unmounts
+      unsubscribe();
+    };
+  }, []);
+
+
+
 
   const admin = {
     name: "James William",
@@ -623,7 +685,7 @@ const Index = () => {
         firstName: formData.firstName,
         email: formData.email,
         lastName: formData.lastName,
-        country: formData.country,
+        country: selectedCountry,
         phone: formData.phone,
         city: formData.city,
       };
@@ -823,6 +885,7 @@ const Index = () => {
   }
 
 
+
   return (
     <div className="w-full bg-[F9F9F9]">
       <Head>
@@ -961,7 +1024,7 @@ const Index = () => {
                     {errors.email && <div className="  px-1 justify-start text-[red] max-w-[100px] w-full flex items-center  whitespace-nowrap rounded-lg  text-[black] mb-1 mt-1  mt-0">{errors.email}</div>}
                   </div>
 
-                  <div>
+                  {/* <div>
                     <label
                       htmlFor="country"
                       className="text-[16px] font-normal text-[#777777]"
@@ -983,7 +1046,7 @@ const Index = () => {
                       ))}
                     </select>
                     {errors.country && <div className="  px-1 justify-start text-[red] flex items-center  whitespace-nowrap rounded-lg  text-[black] mb-1 mt-1  mt-0">{errors.country}</div>}
-                  </div>
+                  </div> */}
                   <div>
                     <label
                       htmlFor="city"
@@ -1150,6 +1213,7 @@ const Index = () => {
           </div>
         </div>
       </div>
+
     </div>
   );
 };

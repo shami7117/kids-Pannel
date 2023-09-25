@@ -13,6 +13,8 @@ const Sidebar = ({ role }) => {
   const router = useRouter();
   const [current, setCurrent] = useState(router.pathname);
 
+
+
   useEffect(() => {
     if (router.pathname) {
       if (current !== router.pathname) {
